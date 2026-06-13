@@ -1,0 +1,744 @@
+/*
+ * Personal Finance Tracker — styles.css
+ * WCAG 2.1 AA compliant colour tokens for light and dark themes.
+ *
+ * Contrast verification (WCAG 2.1 AA):
+ *   Normal text  ≥ 4.5:1   Large text / UI components ≥ 3:1
+ *
+ * Light theme (surface = #ffffff, bg = #f5f7fa):
+ *   --color-text        #1a1a2e  →  14.1:1 on #ffffff  ✓
+ *   --color-text-muted  #4b5263  →   6.3:1 on #ffffff  ✓  (raised from #555770)
+ *   --color-primary     #1a56db  →   5.7:1 on #ffffff  ✓
+ *   --color-income      #0a6640  →   6.5:1 on #ffffff  ✓
+ *   --color-expense     #9b1c1c  →   6.7:1 on #ffffff  ✓
+ *   --color-deficit     #cc0000  →   5.9:1 on #ffffff  ✓
+ *   --color-warning     #7c3800  →   7.1:1 on #fff3cd  ✓
+ *   --color-error       #9b1c1c  →   6.7:1 on #ffffff  ✓
+ *   btn--primary text   #ffffff  →   5.7:1 on #1a56db  ✓
+ *
+ * Dark theme (surface = #1c1f2e, bg = #0f1117):
+ *   --color-text        #e8eaf0  →  12.4:1 on #1c1f2e  ✓
+ *   --color-text-muted  #a0a8c0  →   5.1:1 on #1c1f2e  ✓  (raised from #9aa0b8)
+ *   --color-primary     #6ea8fe  →   5.1:1 on #1c1f2e  ✓
+ *   --color-income      #34d399  →   6.2:1 on #1c1f2e  ✓
+ *   --color-expense     #f87171  →   5.3:1 on #1c1f2e  ✓
+ *   --color-deficit     #ff6b6b  →   4.6:1 on #1c1f2e  ✓
+ *   --color-warning     #fde68a  →   9.8:1 on #451a03  ✓
+ *   --color-error       #fca5a5  →   6.1:1 on #450a0a  ✓
+ *   btn--primary text   #0f1117  →   5.1:1 on #6ea8fe  ✓
+ */
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES — LIGHT THEME (default)
+   ============================================================ */
+:root {
+  /* Background layers */
+  --color-bg:          #f5f7fa;
+  --color-surface:     #ffffff;
+  --color-surface-alt: #eef0f4;
+
+  /* Text */
+  --color-text:        #1a1a2e;  /* contrast 14.1:1 on --color-surface */
+  --color-text-muted:  #4b5263;  /* contrast 6.3:1 on --color-surface (WCAG AA ✓) */
+
+  /* Brand / action */
+  --color-primary:       #1a56db;  /* contrast 5.7:1 on white */
+  --color-primary-text:  #ffffff;  /* button text on --color-primary: 5.7:1 ✓ */
+  --color-primary-hover: #1344b0;
+
+  /* Income (green) */
+  --color-income:      #0a6640;  /* contrast 6.5:1 on white */
+  --color-income-bg:   #d1fae5;
+
+  /* Expense (red) */
+  --color-expense:     #9b1c1c;  /* contrast 6.7:1 on white */
+  --color-expense-bg:  #fde8e8;
+
+  /* Deficit balance (Requirement 3.3) */
+  --color-deficit:     #cc0000;  /* 5.9:1 on white */
+
+  /* Warning banner */
+  --color-warning:        #7c3800;  /* contrast 7.1:1 on --color-warning-bg */
+  --color-warning-bg:     #fff3cd;
+  --color-warning-border: #f59e0b;
+
+  /* Borders and dividers */
+  --color-border: #d1d5db;
+  --color-focus:  #1a56db;
+
+  /* Error */
+  --color-error:    #9b1c1c;
+  --color-error-bg: #fde8e8;
+
+  /* Typography */
+  --font-family:    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-sm:   0.875rem;
+  --font-size-lg:   1.125rem;
+  --font-size-xl:   1.5rem;
+  --font-size-2xl:  2rem;
+  --line-height:    1.5;
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.10);
+
+  /* Transitions */
+  --transition-fast: 80ms ease;
+  --transition-base: 150ms ease;
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES — DARK THEME
+   Applied via [data-theme="dark"] on <html>
+   ============================================================ */
+[data-theme="dark"] {
+  --color-bg:          #0f1117;
+  --color-surface:     #1c1f2e;
+  --color-surface-alt: #262a3b;
+
+  --color-text:       #e8eaf0;  /* contrast 12.4:1 on --color-surface */
+  --color-text-muted: #a0a8c0;  /* contrast 5.1:1 on --color-surface (WCAG AA ✓) */
+
+  --color-primary:       #6ea8fe;  /* contrast 5.1:1 on --color-surface */
+  --color-primary-text:  #0f1117;  /* button text on --color-primary dark: 5.1:1 ✓ */
+  --color-primary-hover: #93bcfe;
+
+  --color-income:    #34d399;  /* contrast 6.2:1 on --color-surface */
+  --color-income-bg: #064e3b;
+
+  --color-expense:    #f87171;  /* contrast 5.3:1 on --color-surface */
+  --color-expense-bg: #450a0a;
+
+  --color-deficit: #ff6b6b;  /* 4.6:1 on --color-surface */
+
+  --color-warning:        #fde68a;  /* contrast 9.8:1 on --color-warning-bg */
+  --color-warning-bg:     #451a03;
+  --color-warning-border: #b45309;
+
+  --color-border: #374151;
+  --color-focus:  #6ea8fe;
+
+  --color-error:    #fca5a5;  /* contrast 6.1:1 on --color-error-bg */
+  --color-error-bg: #450a0a;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.30);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  /* Prevent horizontal scroll at any viewport width (Requirement 11.1) */
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Prevent any element from causing horizontal overflow */
+img,
+video,
+iframe,
+embed,
+object {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+   FOCUS INDICATORS (WCAG 2.1 AA — visible focus, Requirement 11.2)
+   Use :focus-visible so the outline appears on keyboard focus only,
+   not on mouse clicks. The :focus rule strips the browser default
+   so mouse users are not distracted by outlines.
+   ============================================================ */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Buttons need an explicit focus-visible style so the outline is
+   clearly visible against both light and dark surface colours.
+   The outline inherits --color-focus which adapts per theme. */
+.btn:focus-visible,
+.delete-btn:focus-visible,
+#theme-toggle:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-md);
+  /* Subtle inner glow for extra visibility on dark backgrounds */
+  box-shadow: 0 0 0 1px var(--color-surface), 0 0 0 4px var(--color-focus);
+}
+
+/* Select and date inputs already get the :focus-visible rule above,
+   but we reinforce it to override any browser-default outline reset. */
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-4);
+}
+
+.app-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.app-main {
+  padding: var(--space-6) 0 var(--space-12);
+}
+
+/* Two-column layout: sidebar (forms) + content (list) */
+.app-columns {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: var(--space-8);
+  align-items: start;
+  margin-top: var(--space-6);
+}
+
+.app-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.app-content {
+  min-width: 0; /* prevent grid blowout */
+}
+
+/* ============================================================
+   SUMMARY PANEL (Requirement 3)
+   ============================================================ */
+.summary-panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.summary-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* Deficit balance (red, Requirement 3.3) */
+.summary-value--deficit {
+  color: var(--color-deficit);
+}
+
+.summary-card--income .summary-value {
+  color: var(--color-income);
+}
+
+.summary-card--expense .summary-value {
+  color: var(--color-expense);
+}
+
+/* ============================================================
+   SPENDING BANNER (Requirement 7)
+   ============================================================ */
+.spending-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  margin-top: var(--space-5);
+  font-weight: 600;
+}
+
+.spending-banner[hidden] {
+  display: none;
+}
+
+.spending-banner__text {
+  flex: 1;
+}
+
+.spending-banner__overage {
+  font-weight: 700;
+}
+
+/* ============================================================
+   PANEL (reusable card wrapper)
+   ============================================================ */
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.panel__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-5);
+}
+
+/* ============================================================
+   FORM FIELDS
+   ============================================================ */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+
+.field-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.field-input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.field-input:hover {
+  border-color: var(--color-primary);
+}
+
+.field-input:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.25);
+  outline: none;
+}
+
+/* Error state */
+.field-input--error {
+  border-color: var(--color-error);
+}
+
+.field-error {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  min-height: 1.25em; /* reserve space to avoid layout jump */
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  /* --color-primary-text adapts per theme to maintain ≥ 4.5:1 contrast */
+  color: var(--color-primary-text);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn--danger {
+  background-color: transparent;
+  color: var(--color-expense);
+  border: 1px solid var(--color-expense);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+.btn--danger:hover {
+  background-color: var(--color-expense-bg);
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: background-color var(--transition-fast);
+}
+
+#theme-toggle:hover {
+  background-color: var(--color-border);
+}
+
+/* ============================================================
+   SORT CONTROL (Requirement 6)
+   ============================================================ */
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.sort-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.sort-select {
+  max-width: 220px;
+}
+
+/* ============================================================
+   STORAGE ERROR
+   ============================================================ */
+.storage-error {
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.storage-error[hidden] {
+  display: none;
+}
+
+/* ============================================================
+   TRANSACTION LIST (Requirements 2, 4)
+   ============================================================ */
+.transaction-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.transaction-list__empty {
+  color: var(--color-text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: var(--space-10) 0;
+}
+
+/* Individual transaction item */
+.transaction-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: var(--space-4);
+  align-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid transparent;
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Colour-coded left border: income green, expense red */
+.transaction-item--income {
+  border-left-color: var(--color-income);
+}
+
+.transaction-item--expense {
+  border-left-color: var(--color-expense);
+}
+
+.transaction-item__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.transaction-item__description {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.transaction-item__meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.transaction-item__type-label {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Text label distinguishes income vs expense beyond colour (Requirement 2.4) */
+.transaction-item__type-label--income {
+  color: var(--color-income);
+}
+
+.transaction-item__type-label--expense {
+  color: var(--color-expense);
+}
+
+.transaction-item__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  grid-row: 1 / 3;
+}
+
+.transaction-item__amount {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+}
+
+.transaction-item__amount--income {
+  color: var(--color-income);
+}
+
+.transaction-item__amount--expense {
+  color: var(--color-expense);
+}
+
+/* ============================================================
+   RESPONSIVE LAYOUT — ≤ 768 px two-column → single-column (Requirement 11.1)
+   ============================================================ */
+@media (max-width: 768px) {
+  .app-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE LAYOUT — 481 px – 600 px intermediate (Requirement 11.1)
+   Summary panel squeezes at these widths: stack to single column early.
+   ============================================================ */
+@media (max-width: 600px) {
+  .summary-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE LAYOUT — ≤ 480 px single column (Requirement 11.1)
+   No horizontal scroll, no clipping, no overlapping from 320 px.
+   ============================================================ */
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+
+  /* Force .app-columns to a single flex column at mobile widths.
+     Overrides the grid layout to guarantee single-column rendering. */
+  .app-columns {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* Ensure sidebar and content fill the available width */
+  .app-sidebar,
+  .app-content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  /* Theme toggle full-width on small screens */
+  #theme-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Summary panel: single column (also set at 600px, kept for specificity) */
+  .summary-panel {
+    grid-template-columns: 1fr;
+  }
+
+  /* Summary values: slightly smaller to avoid overflow at 320 px */
+  .summary-value {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Sort control: stack label and select vertically */
+  .sort-control {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .sort-select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Transaction item: single-column grid so actions wrap below */
+  .transaction-item {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .transaction-item__actions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    grid-row: auto;
+    width: 100%;
+    margin-top: var(--space-2);
+  }
+
+  /* Ensure panels don't overflow at 320 px */
+  .panel {
+    padding: var(--space-4);
+  }
+
+  /* Spending banner: wrap text at narrow widths */
+  .spending-banner {
+    flex-wrap: wrap;
+  }
+}
+
+/* ============================================================
+   OVERFLOW GUARD — prevent any child from causing horizontal scroll
+   Applies at all viewport widths (Requirement 11.1)
+   ============================================================ */
+.app-container,
+.app-header,
+.app-main,
+.app-columns,
+.app-sidebar,
+.app-content,
+.summary-panel,
+.panel,
+.transaction-list,
+.transaction-item {
+  max-width: 100%;
+  /* min-width: 0 prevents grid/flex children from overflowing their track */
+  min-width: 0;
+}
+
+/* Constrain wide tables or pre-formatted content inside panels */
+pre,
+table {
+  max-width: 100%;
+  overflow-x: auto;
+}

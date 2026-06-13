@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Finance Tracker</title>
+
+  <!-- Inline theme bootstrap: reads pft_theme from localStorage and applies before first paint -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('pft_theme');
+        if (theme === 'dark' || theme === 'light') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      } catch (e) {
+        // localStorage unavailable — silently default to light theme
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- App header -->
+    <header class="app-header">
+      <h1 class="app-title">Personal Finance Tracker</h1>
+      <!-- Theme toggle control (Requirement 8) -->
+      <button id="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        <span class="theme-toggle-label">Dark Mode</span>
+      </button>
+    </header>
+
+    <main class="app-main">
+
+      <!-- Summary panel: balance, total income, total expenses (Requirement 3) -->
+      <section id="summary-panel" class="summary-panel" aria-label="Financial summary">
+        <div class="summary-card">
+          <span class="summary-label">Balance</span>
+          <span class="summary-value" id="balance-value">$0.00</span>
+        </div>
+        <div class="summary-card summary-card--income">
+          <span class="summary-label">Total Income</span>
+          <span class="summary-value" id="income-value">$0.00</span>
+        </div>
+        <div class="summary-card summary-card--expense">
+          <span class="summary-label">Total Expenses</span>
+          <span class="summary-value" id="expense-value">$0.00</span>
+        </div>
+      </section>
+
+      <!-- Spending limit exceeded warning banner (Requirement 7) -->
+      <div
+        id="spending-banner"
+        class="spending-banner"
+        role="alert"
+        aria-live="polite"
+        hidden
+      >
+        <span class="spending-banner__icon" aria-hidden="true">⚠️</span>
+        <span class="spending-banner__text">Spending limit exceeded</span>
+        <span class="spending-banner__overage" id="spending-overage"></span>
+      </div>
+
+      <div class="app-columns">
+
+        <!-- Left column: spending limit + add transaction form -->
+        <aside class="app-sidebar">
+
+          <!-- Spending limit input (Requirement 7) -->
+          <section id="spending-limit" class="panel" aria-labelledby="spending-limit-heading">
+            <h2 id="spending-limit-heading" class="panel__title">Spending Limit</h2>
+            <div class="field-group">
+              <label for="limit-input" class="field-label">Set limit ($)</label>
+              <input
+                type="number"
+                id="limit-input"
+                class="field-input"
+                placeholder="e.g. 1000"
+                min="0.01"
+                max="999999999.99"
+                step="0.01"
+                aria-describedby="limit-error"
+              />
+              <span id="limit-error" class="field-error" role="alert" aria-live="polite"></span>
+            </div>
+            <button type="button" id="save-limit-btn" class="btn btn--primary">
+              Save Limit
+            </button>
+          </section>
+
+          <!-- Add transaction form (Requirement 1) -->
+          <section id="transaction-form" class="panel" aria-labelledby="transaction-form-heading">
+            <h2 id="transaction-form-heading" class="panel__title">Add Transaction</h2>
+            <form id="add-transaction-form" novalidate>
+
+              <div class="field-group">
+                <label for="desc-input" class="field-label">Description</label>
+                <input
+                  type="text"
+                  id="desc-input"
+                  class="field-input"
+                  placeholder="e.g. Grocery shopping"
+                  maxlength="100"
+                  aria-describedby="desc-error"
+                  required
+                />
+                <span id="desc-error" class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="field-group">
+                <label for="amount-input" class="field-label">Amount ($)</label>
+                <input
+                  type="number"
+                  id="amount-input"
+                  class="field-input"
+                  placeholder="0.00"
+                  min="0.01"
+                  max="999999999.99"
+                  step="0.01"
+                  aria-describedby="amount-error"
+                  required
+                />
+                <span id="amount-error" class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="field-group">
+                <label for="type-input" class="field-label">Type</label>
+                <select id="type-input" class="field-input" aria-describedby="type-error" required>
+                  <option value="">Select type</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+                <span id="type-error" class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="field-group">
+                <label for="category-input" class="field-label">Category</label>
+                <!-- Options populated by JS from CATEGORIES constant (Requirement 9) -->
+                <select id="category-input" class="field-input" aria-describedby="category-error" required>
+                  <option value="">Select category</option>
+                  <option value="Food">Food</option>
+                  <option value="Transport">Transport</option>
+                  <option value="Housing">Housing</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Health">Health</option>
+                  <option value="Salary">Salary</option>
+                  <option value="Other">Other</option>
+                </select>
+                <span id="category-error" class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="field-group">
+                <label for="date-input" class="field-label">Date</label>
+                <input
+                  type="date"
+                  id="date-input"
+                  class="field-input"
+                  aria-describedby="date-error"
+                  required
+                />
+                <span id="date-error" class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn btn--primary btn--full">
+                Add Transaction
+              </button>
+
+            </form>
+          </section>
+
+        </aside>
+
+        <!-- Right column: sort control + transaction list -->
+        <div class="app-content">
+
+          <!-- Sort control (Requirement 6) -->
+          <div id="sort-control" class="sort-control">
+            <label for="sort-select" class="sort-label">Sort by:</label>
+            <select id="sort-select" class="field-input sort-select" aria-label="Sort transactions">
+              <option value="date-desc">Date (Newest First)</option>
+              <option value="amount-asc">Amount (Low to High)</option>
+              <option value="amount-desc">Amount (High to Low)</option>
+              <option value="category-asc">Category (A–Z)</option>
+            </select>
+          </div>
+
+          <!-- Storage error message (shown on write failure) -->
+          <div id="storage-error" class="storage-error" role="alert" aria-live="assertive" hidden>
+            <span class="storage-error__text"></span>
+          </div>
+
+          <!-- Transaction list (Requirements 2, 4) -->
+          <ul
+            id="transaction-list"
+            class="transaction-list"
+            aria-label="Transaction history"
+            aria-live="polite"
+          >
+            <!-- Populated by View.renderTransactions() -->
+            <li class="transaction-list__empty" id="empty-message">
+              No transactions recorded yet.
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
